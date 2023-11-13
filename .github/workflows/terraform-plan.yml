@@ -10,18 +10,22 @@ env:
   ARM_SUBSCRIPTION_ID: ${{secrets.RM_SUBSCRIPTION_ID}}
   ARM_TENANT_ID: ${{secrets.ARM_TENANT_ID}}
 
-  jobs:
-    terraform_plan:
-      name: Terraform Plan
-      runs-on: ubuntu-latest
-      defaults:
-        run:
-          shell: bash
-      steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Terraform Plan
-        run: |
-          terraform init
-          terraform validate
-          terraform plan
+jobs:
+  terraform:
+    name: terraform
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Terraform Init
+      run: terraform init
+
+    - name: Terraform Validate
+      run: terraform validate
+
+    - name: Terraform Plan
+      run: terraform plan
